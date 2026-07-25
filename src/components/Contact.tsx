@@ -41,8 +41,8 @@ const socialLinks = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative py-24 bg-fog-900/50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" className="relative py-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-center">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-4">
             <div className="w-16 h-px bg-gradient-to-r from-transparent to-gold-400" />
@@ -85,23 +85,6 @@ export default function Contact() {
               <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${social.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
             </a>
           ))}
-        </div>
-
-        <div className="mt-16 glass-card rounded-2xl p-8 md:p-12 text-center">
-          <h3 className="font-display text-xl font-semibold text-silver-50 mb-4">
-            商务合作
-          </h3>
-          <p className="text-silver-400 max-w-xl mx-auto mb-8">
-            如果您有任何合作需求或项目想法，欢迎通过以上渠道与我们联系。
-            我们期待与您一起创造精彩的作品！
-          </p>
-          <a
-            href="mailto:Fishwo2025@163.com"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-gold-400 to-gold-500 text-fog-900 font-semibold hover:from-gold-500 hover:to-gold-400 transition-all duration-300 shadow-lg shadow-gold-400/20"
-          >
-            <Mail className="w-5 h-5" />
-            发送邮件
-          </a>
         </div>
       </div>
     </section>

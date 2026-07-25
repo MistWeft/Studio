@@ -1,23 +1,20 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Sparkles, ChevronRight } from 'lucide-react';
+import { Menu, X, Sparkles, ChevronRight, ArrowLeft } from 'lucide-react';
 
 const navLinks = [
   { name: '首页', href: '#hero' },
   { name: '关于', href: '#about' },
-  { name: '服务', href: '#services' },
+  { name: '创作', href: '#works' },
   { name: '项目', href: '#projects' },
   { name: '联系', href: '#contact' },
 ];
 
-const menuLinks = [
-  { name: '合作咨询', href: '#contact' },
-  { name: '加入我们', href: '#about' },
-  { name: '项目展示', href: '#projects' },
-  { name: '服务介绍', href: '#services' },
-  { name: '工作室博客', href: '#' },
-];
+interface HeaderProps {
+  activeSection: number;
+  onCollaboration: () => void;
+}
 
-export default function Header() {
+export default function Header({ activeSection, onCollaboration }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -30,12 +27,10 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+  const scrollToSection = (index: number) => {
+    const element = document.querySelector(navLinks[index].href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
     setIsMenuOpen(false);
   };
@@ -51,11 +46,7 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <a
-              href="#hero"
-              className="flex items-center gap-3 group"
-              onClick={(e) => { e.preventDefault(); scrollToSection('#hero'); }}
-            >
+            <div className="flex items-center gap-3 group cursor-pointer" onClick={() => scrollToSection(0)}>
               <div className="relative">
                 <Sparkles className="w-8 h-8 text-gold-400 transition-transform duration-300 group-hover:rotate-12" />
                 <div className="absolute inset-0 bg-gold-400/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -68,28 +59,33 @@ export default function Header() {
                   拾雾工作室
                 </span>
               </div>
-            </a>
+            </div>
 
             <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <a
+              {navLinks.map((link, index) => (
+                <button
                   key={link.name}
-                  href={link.href}
-                  onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
-                  className="relative text-sm font-medium tracking-wide text-silver-300 hover:text-gold-400 transition-all duration-300 group"
+                  onClick={() => scrollToSection(index)}
+                  className={`relative text-sm font-medium tracking-wide transition-all duration-300 ${
+                    activeSection === index
+                      ? 'text-gold-400'
+                      : 'text-silver-300 hover:text-gold-400'
+                  }`}
                 >
                   {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-gold-400 transition-all duration-300 group-hover:w-full" />
-                </a>
+                  {activeSection === index && (
+                    <span className="absolute -bottom-1 left-0 w-full h-px bg-gold-400" />
+                  )}
+                </button>
               ))}
             </nav>
 
             <div className="flex items-center gap-4">
               <button
                 className="hidden sm:flex items-center gap-2 px-4 py-2 glass-card rounded-full text-sm font-medium text-silver-300 hover:text-gold-400 hover:border-gold-400/30 transition-all duration-300"
-                onClick={() => scrollToSection('#contact')}
+                onClick={onCollaboration}
               >
-                合作咨询
+                商务合作
                 <ChevronRight className="w-4 h-4" />
               </button>
 
@@ -116,19 +112,35 @@ export default function Header() {
             目录
           </h3>
           <nav className="space-y-3">
-            {menuLinks.map((link) => (
-              <a
+            {navLinks.map((link, index) => (
+              <button
                 key={link.name}
-                href={link.href}
-                onClick={(e) => { e.preventDefault(); scrollToSection(link.href); }}
-                className="flex items-center justify-between p-3 rounded-xl hover:bg-fog-700/50 transition-colors group"
+                onClick={() => scrollToSection(index)}
+                className={`flex items-center justify-between p-3 rounded-xl transition-colors ${
+                  activeSection === index ? 'bg-fog-700/50' : 'hover:bg-fog-700/50'
+                }`}
               >
-                <span className="text-silver-300 group-hover:text-gold-400 transition-colors">
+                <span className={`transition-colors ${
+                  activeSection === index ? 'text-gold-400' : 'text-silver-300 hover:text-gold-400'
+                }`}>
                   {link.name}
                 </span>
-                <ChevronRight className="w-4 h-4 text-silver-600 group-hover:text-gold-400 transition-colors" />
-              </a>
+                <ChevronRight className={`w-4 h-4 transition-colors ${
+                  activeSection === index ? 'text-gold-400' : 'text-silver-600'
+                }`} />
+              </button>
             ))}
+            <div className="border-t border-silver-800/50 pt-3 mt-3">
+              <button
+                onClick={onCollaboration}
+                className="flex items-center justify-between w-full p-3 rounded-xl hover:bg-fog-700/50 transition-colors"
+              >
+                <span className="text-silver-300 hover:text-gold-400 transition-colors">
+                  商务合作
+                </span>
+                <ArrowLeft className="w-4 h-4 text-silver-600 rotate-180" />
+              </button>
+            </div>
           </nav>
           
           <div className="mt-6 pt-6 border-t border-silver-800/50">

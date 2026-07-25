@@ -1,4 +1,4 @@
-import { Heart, Sparkles } from 'lucide-react';
+import { Heart, Sparkles, Mail, Github, MessageCircle, Video } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -23,25 +23,36 @@ export default function Footer() {
             </h3>
             <div className="flex items-center justify-center gap-6">
               <a
-                href="#"
-                className="text-silver-400 hover:text-gold-400 transition-colors"
-                aria-label="微信"
+                href="https://bilibili.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-silver-400 hover:text-pink-400 transition-colors flex items-center gap-2"
               >
-                <span className="text-lg">微信</span>
+                <Video className="w-5 h-5" />
+                <span className="text-sm">哔哩哔哩</span>
               </a>
               <a
                 href="#"
-                className="text-silver-400 hover:text-gold-400 transition-colors"
-                aria-label="QQ"
+                className="text-silver-400 hover:text-blue-400 transition-colors flex items-center gap-2"
               >
-                <span className="text-lg">QQ</span>
+                <MessageCircle className="w-5 h-5" />
+                <span className="text-sm">QQ</span>
               </a>
               <a
-                href="#"
-                className="text-silver-400 hover:text-gold-400 transition-colors"
-                aria-label="B站"
+                href="mailto:Fishwo2025@163.com"
+                className="text-silver-400 hover:text-amber-400 transition-colors flex items-center gap-2"
               >
-                <span className="text-lg">B站</span>
+                <Mail className="w-5 h-5" />
+                <span className="text-sm">邮箱</span>
+              </a>
+              <a
+                href="https://github.com/MistWeft"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-silver-400 hover:text-slate-300 transition-colors flex items-center gap-2"
+              >
+                <Github className="w-5 h-5" />
+                <span className="text-sm">GitHub</span>
               </a>
             </div>
           </div>
