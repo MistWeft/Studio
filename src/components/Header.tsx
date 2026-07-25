@@ -41,7 +41,7 @@ export default function Header({ activeSection, onCollaboration }: HeaderProps) 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
             ? 'bg-fog-900/95 backdrop-blur-xl shadow-lg shadow-black/30'
-            : 'bg-transparent'
+            : 'bg-fog-900/60 backdrop-blur-sm'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

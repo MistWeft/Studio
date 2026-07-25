@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import Header from "@/components/Header";
 import FullPageScroll from "@/components/FullPageScroll";
 import Hero from "@/components/Hero";
@@ -22,16 +23,22 @@ export default function App() {
   ];
 
   if (showCollaboration) {
-    return <Collaboration onBack={() => setShowCollaboration(false)} />;
+    return (
+      <ErrorBoundary>
+        <Collaboration onBack={() => setShowCollaboration(false)} />
+      </ErrorBoundary>
+    );
   }
 
   return (
-    <div className="min-h-screen">
-      <div className="stars-background" />
-      <div className="stars-overlay" />
-      <Header activeSection={activeSection} onCollaboration={() => setShowCollaboration(true)} />
-      <FullPageScroll sections={sections} onSectionChange={setActiveSection} />
-      <Footer />
-    </div>
+    <ErrorBoundary>
+      <div className="min-h-screen">
+        <div className="stars-background" />
+        <div className="stars-overlay" />
+        <Header activeSection={activeSection} onCollaboration={() => setShowCollaboration(true)} />
+        <FullPageScroll sections={sections} onSectionChange={setActiveSection} />
+        <Footer />
+      </div>
+    </ErrorBoundary>
   );
 }
