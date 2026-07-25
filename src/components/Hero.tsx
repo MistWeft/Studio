@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ChevronDown, Sparkles } from 'lucide-react';
 
-interface Particle {
+interface Star {
   id: number;
   x: number;
   y: number;
@@ -11,41 +11,47 @@ interface Particle {
 }
 
 export default function Hero() {
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
-    const newParticles: Particle[] = [];
-    for (let i = 0; i < 30; i++) {
-      newParticles.push({
+    const newStars: Star[] = [];
+    for (let i = 0; i < 150; i++) {
+      newStars.push({
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
-        size: Math.random() * 4 + 1,
-        duration: Math.random() * 10 + 10,
+        size: Math.random() * 3 + 1,
+        duration: Math.random() * 4 + 2,
         delay: Math.random() * 5,
       });
     }
-    setParticles(newParticles);
+    setStars(newStars);
   }, []);
 
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="fog-background" />
-      <div className="fog-overlay" />
+  const scrollToAbout = () => {
+    const element = document.querySelector('#about');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {particles.map((particle) => (
+  return (
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="stars-background" />
+      
+      <div className="stars-overlay">
+        {stars.map((star) => (
           <div
-            key={particle.id}
-            className="absolute rounded-full bg-silver-400/30"
+            key={star.id}
+            className="star"
             style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-              animation: `float ${particle.duration}s ease-in-out infinite`,
-              animationDelay: `${particle.delay}s`,
-            }}
+              left: `${star.x}%`,
+              top: `${star.y}%`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              '--duration': `${star.duration}s`,
+              '--delay': `${star.delay}s`,
+            } as React.CSSProperties}
           />
         ))}
       </div>
@@ -79,13 +85,13 @@ export default function Hero() {
         </div>
 
         <div className="animate-fadeIn mt-12" style={{ animationDelay: '0.6s' }}>
-          <a
-            href="#about"
+          <button
+            onClick={scrollToAbout}
             className="inline-flex items-center gap-2 px-8 py-3 glass-card rounded-full text-sm font-medium text-silver-300 hover:text-gold-400 hover:border-gold-400/30 transition-all duration-300"
           >
             了解更多
             <ChevronDown className="w-4 h-4 animate-bounce" />
-          </a>
+          </button>
         </div>
       </div>
 

@@ -1,24 +1,25 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "@/components/Header";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Services from "@/components/Services";
+import Projects from "@/components/Projects";
+import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import Home from "@/pages/Home";
-import ProjectsPage from "@/pages/ProjectsPage";
-import ContactPage from "@/pages/ContactPage";
 
 export default function App() {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <div className="min-h-screen">
+      <div className="stars-background" />
+      <div className="stars-overlay" />
+      <Header />
+      <main>
+        <Hero />
+        <About />
+        <Services />
+        <Projects />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
   );
 }
